@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+#cont {width:400px;}
+
+a:link {color: #FF0;}
+a:visited {color: #FF0;}
+a:hover {color: #FF0;}
+a:active {color: #FF0;}
+
+/*Atributos asignados al formulario del sistema de comentarios*/
+#formcomentarios{text-align:left;}
+#apellidos, #nombres, #correo, #web, #comentario {float:left; background:#000; color:#FFF; border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px;}
+#apellidos:hover, #nombres:hover, #correo:hover, #web:hover, #comentario:hover{background:#FFF; color:#000;}
+#apellidos, #nombres, #comentario {border-color:#F00;}
+#obligatorio {color:#F00; font-weight:bold;}
+
+/*Atributos donde se imprimen los comentarios*/
+#print {width:400px; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; background:#009;}
+#cnombre {width:80px; float:left; color:#FFF; }
+#cweb {width:310px; float:right; color:#FFF; text-align:left; }
+#ccomentario {width:310px; float:right; color:#FFF; text-align:left; }
+
+#title {color:#0CC; font-weight:bold;}
+
+#cont_datos_cuestionario {
+    //display:block;
+    float:left;
+
+    overflow:auto
+}
+
+.tabla1 {
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+    //width: 80%;
+    //background: red;
+}
+
+.pregunta_enunciado {
+    margin:6px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius:10px; 
+    text-align:justify;
+    padding: 20px;
+    background-color:aliceblue;
+        
+}
+
+.BOpcion {
+    text-align:center;
+    text-justify:distribute;
+    background-color:aliceblue;
+    border-radius:10px;
+    width: 80%;
+    height: 50px;
+    
+}
+
+.BOpcionSeleccionada {
+    text-align:center;
+    font-weight: bold;
+    background-color:aqua;
+    border-radius:10px;
+    width: 80%;
+    height: 50px;
+    
+}
+
+.Bresponder {
+    text-align:center;
+    background-color:aliceblue;
+    border-radius:10px;
+    width: 250px;
+    height: 50px;    
+    visibility:visible;
+}
+
+#Breingreso {
+    text-align:center;
+    text-decoration-color:black; 
+    background-color:aliceblue;
+    border-radius:10px;
+    width: 250px;
+    height: 50px;     
+}

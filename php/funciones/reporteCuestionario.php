@@ -1,0 +1,98 @@
+<?php
+
+require_once("../db/funciones_prop.php");
+require_once("../db/funciones_postgres.php");
+
+$idCuestionarioRespondido = $_GET['corregirIdCuestionario'];
+
+$consultaCorregido = consulta_arr_pg("select * from web.vw_form_cuestionariorespondido where idcuestionariorespondido=".$idCuestionarioRespondido);
+$persona = $consultaCorregido['persona'][1];
+$cuestionario = $consultaCorregido['cuestionario'][1];
+$txAprobado = $consultaCorregido['txaprobado'][1];
+$puntaje = $consultaCorregido['puntaje'][1];
+$fecha = $consultaCorregido['txfecha'][1];
+$cantidadRegistros = $consultaCorregido['cantregistros'][0];
+
+?>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="../../css/signin.css">
+        <link rel="stylesheet" type="text/css" href="../../css/style2.css">
+
+        <script type="application/javascript" src="../../js/jquery.js"></script>
+        <script type="application/javascript" src="../../js/bootstrap.js"></script>
+        <script type="application/javascript" src="../../js/funciones.js"></script>
+
+        <title>Sistema de Evaluación - Ministerio Público Fiscal</title>
+    </head>
+    <body>
+        <h1 align="center">Ministerio Público Fiscal - Concurso Ayudante Judicial</h1>
+        <h2 align="center">Examen - <?php echo $cuestionario?></h2>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-signin text-left">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4>Persona</h4>
+                        </div>
+                        <div class="panel-body">
+                            <strong><?php echo $persona?></strong>
+                        </div>
+                    </div>
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4>Resultado</h4>
+                        </div>
+                        <div class="panel-body">
+                            <strong><?php echo $txAprobado?></strong>
+                        </div>
+                    </div>
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4>Puntaje</h4>
+                        </div>
+                        <div class="panel-body">
+                            <strong><?php echo $puntaje." Punto/s"?></strong>
+                        </div>
+                    </div>
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4>Fecha</h4>
+                        </div>
+                        <div class="panel-body">
+                            <strong><?php echo $fecha?></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="contenedor-cuestionario" align="left">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h4>Cuestionario: </h4>
+                        </div>
+                    </div>
+                    <?php
+                        for ($i=1;$i<=$cantidadRegistros;$i++){ ?>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h5><?php echo $consultaCorregido['ordentexto'][$i]." - ".$consultaCorregido['pregunta'][$i] ?></h5>
+                                </div>
+                                <?php if($consultaCorregido['opcion'][$i] != null){ ?>
+                                    <div class="panel-body alert-cuestionario alert-success text-center">
+                                        <strong><?php echo $consultaCorregido['opcion'][$i] ?></strong>
+                                    </div>
+                                <?php
+                                } ?>
+                            </div>
+                            <?php
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

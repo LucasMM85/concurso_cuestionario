@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <script type="application/javascript" src="js/jquery.js"></script>
+        <script type="application/javascript" src="js/bootstrap.js"></script>
+        <script type="application/javascript" src="js/funciones.js"></script>
+        <script type="application/javascript" src="js/jquery.countdown.js"></script>
+
+        <title>Sistema de Evaluación - Ministerio Público Fiscal</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div id="encabezado" class="panel-heading">
+                    <div class="panel-title text-center">
+                        <h1 class="title">Ministerio Público Fiscal - Concurso Ayudante Judicial</h1>
+                        <hr />
+                        <h2>Evaluación de conocimientos</h2>
+                    </div>
+                </div>
+
+                <!-- PAGINA DE LOGIN -->
+                <div id="pagina_login" class="pagina">
+                    <div class="col-md-4 col-md-offset-4" id="ajaxDivLogin">
+                        <div class="panel panel-login">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <h3>Ingreso</h3>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="panel-body" id="divTurno">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form id="form-examen-login" name="form-examen-login" action="" method="post" role="form" style="display: block;">
+                                            <div id="formAlert" class="alert alert-warning collapse">
+                                                <a class="close">×</a>
+                                                <span id="alertLogin"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cuit">CUIT/CUIL:</label>
+                                                <input type="text" name="cuit" id="cuit_ingreso" tabindex="1" class="form-control" placeholder="Nro. de CUIL/CUIT" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-sm-offset-3">
+                                                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Aceptar">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAGINA DE VALIDACION DE DATOS -->
+                <div id="pagina_recepcion" class="pagina collapse">
+                    <div class="col-md-8 col-md-offset-2 principal" id="ajaxDivValidacion">
+                        <div class="panel panel-login" id="queryResult">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <h3>Validación de Datos</h3>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="panel-body" id="responseBody">
+                                <form name="form-validacion" id="form-validacion" action="" method="post">
+                                    <div class="col-md-6 col-md-offset-3 alert alert-success text-center collapse" id="alertConfirmacion">
+                                        <strong><span id="mensajeConfirmacion"></span></strong>
+                                    </div>
+                                    <div class="col-md-offset-2 resultados">
+                                        <dl class="dl-horizontal">
+                                            <dt>Persona:</dt>
+                                            <dd id="persona"></dd>
+                                            <dt>CUIT:</dt>
+                                            <dd id="cuit"></dd>
+                                            <dt>Cuestionario:</dt>
+                                            <dd id="cuestionario"></dd>
+                                            <dt>Nro. Cuestionario:</dt>
+                                            <dd id="idcuestionario"></dd>
+                                            <dt>Tiempo:</dt>
+                                            <dd id="tiempo"></dd>
+                                        </dl>
+                                        <input type="hidden" id="input_idcuestionarioRespondido" name="idcuestionarioRespondido">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="centrado">
+                                        <input type="submit" class="btn btn-login" value="Iniciar Examen">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAGINA DE EXAMEN -->
+                <div id="pagina_cuestionario" class="pagina collapse">
+                    <!-- ENCABEZADO -->
+                    <nav class="navbar navbar-fixed-top navbar-default">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-brand">
+                                <li><strong><span id="nav_titulo">Evaluación de Conocimientos</span></strong></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-center navbar-brand">
+                                <li class="separator"><strong>PERSONA: </strong><span id="nav_persona"></span></li>
+                                <li><strong>TIEMPO: </strong><span id="nav_cronometro">00:00:00</span></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <!--<li class="separator"><strong>CUESTIONARIO: </strong><span id="nav_tema"></span></li> -->
+                                <li class="separator"><button id="nav-boton-finalizar" class="btn btn-danger navbar-boton" onclick="javascript:modalFinalizar()">Finalizar</button> </li>
+                                <li class="separator"><button id="nav-boton-corregir" class="btn btn-info navbar-boton" onclick="corregirCuestionario()" disabled>Corregir</button> </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <!-- FIX PARA QUE LA PAGINA SE MUESTRE POR DEBAJO DEL NAV-->
+                    <div class="space-fix"></div>
+
+                    <!-- CONTENIDO, PREGUNTAS Y RESPUESTAS -->
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-login">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <h2>Cuestionario</h2>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="panel-body" id="panel-cuestionario">
+                                <div class="panel-group" id="accordion-cuestionario">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default hidden" id="template-panel-pregunta">
+            <div class="panel-heading">
+                <h4 class="panel-title texto-pregunta">
+                </h4>
+            </div>
+        </div>
+
+        <div id="template-panel-respuestas" class="panel-opciones panel-collapse">
+        </div>
+
+        <button id="template-boton-respuesta" class="bot-opcion list-group-item hidden">
+        </button>
+
+
+        <!-- MODAL DE FINALIZACION -->
+        <div class="modal fade" id="modalFinalizar" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Finalizar Examen</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="alertModal" class="alert alert-warning alert-dismissable fade in hidden">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Atención! </strong><span id="alertModalTexto"></span>
+                        </div>
+                        <h4>Ingrese su DNI para finalizar</h4>
+                        <label class="control-label" for="dniModal">DNI:</label>
+                        <input type="text" id="dniModal" name="dniModal" class="text-limitado form-control" placeholder="DNI..." value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiarModal()">Cancelar</button>
+                        <button type="button" class="btn btn-danger" onclick="finalizarCuestionario()">Finalizar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+        <!-- MODAL DE CORREGIR -->
+        <div class="modal fade" id="modalCorregir" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title text-center">Puntaje del Examen - <span id="corregirTituloTema"></span></h3>
+                    </div>
+                    <form method="get" action="php/funciones/reporteCuestionario.php">
+                        <div class="modal-body text-center">
+                            <h2 id="corregirApellidoNombre"></h2>
+                            <h3 id="corregirAprobadoDesaprobado"></h3>
+                            <h3 id="corregirPuntaje"></h3>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" id="corregirIdCuestionario" name="corregirIdCuestionario">
+                            <input type="submit" id="corregirImprimir" class="btn btn-lg btn-success" value="Imprimir">
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </body>
+</html>
