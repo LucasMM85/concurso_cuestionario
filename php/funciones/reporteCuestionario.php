@@ -20,6 +20,7 @@ $cantidadRegistros = $consultaCorregido['cantregistros'][0];
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../../css/signin.css">
         <link rel="stylesheet" type="text/css" href="../../css/style2.css">
+        <link rel="stylesheet" type="text/css" href="../../css/print.css">
 
         <script type="application/javascript" src="../../js/jquery.js"></script>
         <script type="application/javascript" src="../../js/bootstrap.js"></script>
@@ -30,6 +31,10 @@ $cantidadRegistros = $consultaCorregido['cantregistros'][0];
     <body>
         <h1 align="center">Ministerio Público Fiscal - Concurso Ayudante Judicial</h1>
         <h2 align="center">Examen - <?php echo $cuestionario?></h2>
+        <div class="row text-center">
+            <button class="btn btn-lg btn-success" onclick="window.print()">Imprimir</button>
+            <button class="btn btn-lg btn-danger" onclick="window.location.href='/cuestionario_concurso'">Retornar al Inicio</button>
+        </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-signin text-left">

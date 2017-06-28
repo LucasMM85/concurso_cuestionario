@@ -19,3 +19,6 @@ div.pageBreak {
     margin:0;
 }
 
+button {
+    display: none;
+}
