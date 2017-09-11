@@ -87,7 +87,7 @@ $cantidadRegistros = $consultaCorregido['cantregistros'][0];
                                     <h5><?php echo $consultaCorregido['ordentexto'][$i]." - ".$consultaCorregido['pregunta'][$i] ?></h5>
                                 </div>
                                 <?php if($consultaCorregido['opcion'][$i] != null){ ?>
-                                    <div class="panel-body alert-cuestionario alert-success text-center">
+                                    <div class="panel-body alert-cuestionario text-center">
                                         <strong><?php echo $consultaCorregido['opcion'][$i] ?></strong>
                                     </div>
                                 <?php

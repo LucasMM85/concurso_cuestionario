@@ -229,13 +229,22 @@ function agregarPreguntas($arrayPreguntas) {
             $('#template-boton-respuesta').clone(true).appendTo($panelRespuestas);
             var $botonRespuesta = $panelRespuestas.find('#template-boton-respuesta');
             $botonRespuesta.attr('id',$pregunta.id+'-'+$opcion.id);
-            $botonRespuesta.html($opcion.orden+" "+$opcion.descripcion);
+            //$botonRespuesta.html($opcion.orden+" "+$opcion.descripcion);
+            insertarHtml($opcion, $botonRespuesta);
             if($opcion.isSeleccionada){
                 $botonRespuesta.addClass('list-group-item-info');
             }
             $botonRespuesta.removeClass('hidden');
         }
         i++;
+    }
+}
+
+function insertarHtml(opcion, $botonRespuesta){
+    if(opcion.tipodato === "html"){
+        $botonRespuesta.append(opcion.descripcion);
+    } else {
+        $botonRespuesta.html(opcion.orden+" "+opcion.descripcion);
     }
 }
 

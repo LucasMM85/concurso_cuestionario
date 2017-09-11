@@ -11,6 +11,7 @@ class Opcion implements \JsonSerializable
     private $orden;
     private $descripcion;
     private $isSeleccionada;
+    private $tipodato;
 
     /**
      * @return mixed
@@ -81,6 +82,24 @@ class Opcion implements \JsonSerializable
     public function setIsSeleccionada($isSeleccionada)
     {
         $this->isSeleccionada = $isSeleccionada;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTipodato()
+    {
+        return $this->tipodato;
+    }
+
+    /**
+     * @param mixed $tipodato
+     * @return Opcion
+     */
+    public function setTipodato($tipodato)
+    {
+        $this->tipodato = $tipodato;
         return $this;
     }
 
