@@ -209,6 +209,11 @@ function iniciarCuestionario($response) {
             finalizarNavBar("Cuestionario Finalizado");
         });
     agregarPreguntas($response.preguntas);
+
+    $(".zoom-test").elevateZoom({
+        zoomWindowPosition: 1
+    });
+
     $("#pagina_cuestionario").show();
 }
 
@@ -220,7 +225,8 @@ function agregarPreguntas($arrayPreguntas) {
         var $panelPregunta = $('#panel-cuestionario').find($("#template-panel-pregunta"));
         $panelPregunta.attr('id',$pregunta.id);
         $panelPregunta.removeClass('hidden');
-        $panelPregunta.find(".texto-pregunta").text($pregunta.orden+" - "+$pregunta.descripcion);
+        //$panelPregunta.find(".texto-pregunta").text($pregunta.orden+" - "+$pregunta.descripcion);
+        insertarHtml($pregunta, $panelPregunta);
         $('#template-panel-respuestas').clone().appendTo($panelPregunta);
         var $panelRespuestas = $panelPregunta.find($('#template-panel-respuestas'));
         $panelRespuestas.attr("id", 'colapsar'+$pregunta.id);
@@ -243,9 +249,31 @@ function agregarPreguntas($arrayPreguntas) {
 function insertarHtml(opcion, $botonRespuesta){
     if(opcion.tipodato === "html"){
         $botonRespuesta.append(opcion.descripcion);
-    } else {
+    } else if(opcion.tipodato === "imagen"){
+        //$botonRespuesta.html(opcion.orden+" "+opcion.descripcion);
+        insertarImagen(opcion.descripcion, $botonRespuesta);
+    } else if(opcion.tipodato === "texto"){
         $botonRespuesta.html(opcion.orden+" "+opcion.descripcion);
     }
+}
+
+function insertarImagen(src, $elemento){
+    var img = document.createElement("IMG");
+    var className = document.createAttribute("class");
+    var zoom = document.createAttribute("data-zoom-image");
+    img.width = 300;
+    img.height= 200;
+    if(src.search("img") != -1){
+        img.src = img.baseURI+src;
+    } else {
+        img.src = img.baseURI+"img/"+src;
+    }
+    $elemento.css("text-align","center");
+    className.value = "zoom-test";
+    zoom.value = img.src;
+    img.setAttributeNode(className);
+    img.setAttributeNode(zoom);
+    $elemento.html(img);
 }
 
 function finalizarNavBar(mensajeEstado) {

@@ -9,6 +9,7 @@ class Pregunta implements \JsonSerializable
     private $id;
     private $descripcion;
     private $orden;
+    private $tipodato;
     private $opciones;
 
     /**
@@ -66,7 +67,25 @@ class Pregunta implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return mixed
+     */
+    public function getTipodato()
+    {
+        return $this->tipodato;
+    }
+
+    /**
+     * @param mixed $tipodato
+     * @return Pregunta
+     */
+    public function setTipodato($tipodato)
+    {
+        $this->tipodato = $tipodato;
+        return $this;
+    }
+
+    /**
+     * @return mixed
      */
     public function getOpciones()
     {
@@ -74,7 +93,7 @@ class Pregunta implements \JsonSerializable
     }
 
     /**
-     * @param array $opciones
+     * @param mixed $opciones
      * @return Pregunta
      */
     public function setOpciones($opciones)

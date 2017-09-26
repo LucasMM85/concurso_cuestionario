@@ -45,6 +45,7 @@ for($i = 1; $i <= $consultaCuestionario['cantregistros'][0]; $i++){
         $pregunta->setId($consultaCuestionario['idpregunta'][$i]);
         $pregunta->setDescripcion($consultaCuestionario['pregunta'][$i]);
         $pregunta->setOrden($consultaCuestionario['ordentexto'][$i]);
+        $pregunta->setTipodato($consultaCuestionario['preguntatipodato'][$i]);
         $opciones = array();
         $pregunta->setOpciones($opciones);
     } else {
@@ -53,6 +54,7 @@ for($i = 1; $i <= $consultaCuestionario['cantregistros'][0]; $i++){
             $pregunta->setId($consultaCuestionario['idpregunta'][$i]);
             $pregunta->setDescripcion($consultaCuestionario['pregunta'][$i]);
             $pregunta->setOrden($consultaCuestionario['ordentexto'][$i]);
+            $pregunta->setTipodato($consultaCuestionario['preguntatipodato'][$i]);
             $opciones = array();
             $pregunta->setOpciones($opciones);
         }
@@ -62,7 +64,7 @@ for($i = 1; $i <= $consultaCuestionario['cantregistros'][0]; $i++){
     $opcion->setId($consultaCuestionario['idpreguntaopcion'][$i]);
     $opcion->setOrden($consultaCuestionario['opcionvineta'][$i]);
     $opcion->setDescripcion($consultaCuestionario['opcion'][$i]);
-    $opcion->setTipodato($consultaCuestionario['tipodato'][$i]);
+    $opcion->setTipodato($consultaCuestionario['opciontipodato'][$i]);
     if($consultaCuestionario['idopcionrespondida'][$i] != null){
         $opcion->setIsSeleccionada(true);
     } else {
