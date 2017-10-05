@@ -262,3 +262,7 @@ button[disabled] {
     -ms-user-select: none;
     user-select: none;
 }
+
+.negrita {
+    font-weight: bold;
+}

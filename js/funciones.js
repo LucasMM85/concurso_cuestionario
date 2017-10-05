@@ -210,10 +210,6 @@ function iniciarCuestionario($response) {
         });
     agregarPreguntas($response.preguntas);
 
-    $(".zoom-test").elevateZoom({
-        zoomWindowPosition: 1
-    });
-
     $("#pagina_cuestionario").show();
 }
 
@@ -251,29 +247,35 @@ function insertarHtml(opcion, $botonRespuesta){
         $botonRespuesta.append(opcion.descripcion);
     } else if(opcion.tipodato === "imagen"){
         //$botonRespuesta.html(opcion.orden+" "+opcion.descripcion);
-        insertarImagen(opcion.descripcion, $botonRespuesta);
+        insertarImagen(opcion, $botonRespuesta);
     } else if(opcion.tipodato === "texto"){
-        $botonRespuesta.html(opcion.orden+" "+opcion.descripcion);
+        $botonRespuesta.html(opcion.orden+" - "+opcion.descripcion);
     }
 }
 
-function insertarImagen(src, $elemento){
+function insertarImagen(opcion, $elemento){
+    var src = opcion.descripcion;
     var img = document.createElement("IMG");
-    var className = document.createAttribute("class");
-    var zoom = document.createAttribute("data-zoom-image");
-    img.width = 300;
-    img.height= 200;
     if(src.search("img") != -1){
         img.src = img.baseURI+src;
     } else {
         img.src = img.baseURI+"img/"+src;
     }
+    img.onload = function () {
+        if(img.width > 700){
+            img.width = 700;
+        }
+    };
+    var div = document.createElement("DIV");
+    var texto = document.createTextNode(opcion.orden+" - ");
+    div.appendChild(texto);
+    div.style.textAlign = "left";
+    div.style.float = "left";
     $elemento.css("text-align","center");
-    className.value = "zoom-test";
-    zoom.value = img.src;
-    img.setAttributeNode(className);
-    img.setAttributeNode(zoom);
-    $elemento.html(img);
+    //$elemento.html(div);
+    //$elemento.html(img);
+    $elemento.append(div);
+    $elemento.append(img);
 }
 
 function finalizarNavBar(mensajeEstado) {

@@ -29,7 +29,7 @@ $cantidadRegistros = $consultaCorregido['cantregistros'][0];
         <title>Sistema de Evaluación - Ministerio Público Fiscal</title>
     </head>
     <body>
-        <h1 align="center">Ministerio Público Fiscal - Concurso Ayudante Judicial</h1>
+        <h1 align="center">Ministerio Público Fiscal</h1>
         <h2 align="center">Examen - <?php echo $cuestionario?></h2>
         <div class="row text-center">
             <button class="btn btn-lg btn-success" onclick="window.print()">Imprimir</button>
@@ -84,11 +84,28 @@ $cantidadRegistros = $consultaCorregido['cantregistros'][0];
                         for ($i=1;$i<=$cantidadRegistros;$i++){ ?>
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h5><?php echo $consultaCorregido['ordentexto'][$i]." - ".$consultaCorregido['pregunta'][$i] ?></h5>
+                                    <?php
+                                    if(strcmp($consultaCorregido['preguntatipodato'][$i],"texto") === 0){?>
+                                        <h5><?php echo $consultaCorregido['ordentexto'][$i]." - ".$consultaCorregido['pregunta'][$i] ?></h5><?php
+                                    } else if(strcmp($consultaCorregido['preguntatipodato'][$i],"imagen") === 0){
+                                        ?><div style="text-align: left; float: left;">
+                                            <?php echo $consultaCorregido['ordentexto'][$i]." - "?>
+                                        </div>
+                                        <div style="text-align: center">
+                                            <img width="600" src="../../img/<?php echo $consultaCorregido['pregunta'][$i]?>">
+                                        </div><?php
+                                    }
+                                    ?>
                                 </div>
                                 <?php if($consultaCorregido['opcion'][$i] != null){ ?>
                                     <div class="panel-body alert-cuestionario text-center">
-                                        <strong><?php echo $consultaCorregido['opcion'][$i] ?></strong>
+                                        <?php
+                                        if(strcmp($consultaCorregido['opciontipodato'][$i],"texto") === 0){
+                                            ?><strong><?php echo $consultaCorregido['opcion'][$i] ?></strong><?php
+                                        } else if(strcmp($consultaCorregido['opciontipodato'][$i],"imagen") === 0){
+                                            ?><img src="../../img/<?php echo $consultaCorregido['opcion'][$i]?>"><?php
+                                        }
+                                        ?>
                                     </div>
                                 <?php
                                 } ?>
